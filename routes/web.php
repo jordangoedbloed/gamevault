@@ -11,7 +11,12 @@ use App\Http\Controllers\ReviewController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => view('welcome'));
+Route::get('/', function () {
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login');
+});
+
 
 Route::get('/dashboard', fn () => view('dashboard'))
     ->middleware(['auth', 'verified'])
@@ -31,6 +36,14 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/games/{game}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::post('/games/{game}/played', [PlaySessionController::class, 'store'])
         ->name('playsessions.store');
+
+    Route::patch('/reviews/{review}', [ReviewController::class, 'update'])
+    ->middleware('can:update,review')
+    ->name('reviews.update');
+
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
+        ->middleware('can:delete,review')
+        ->name('reviews.destroy');
 });
 
 // ADMIN (auth + verified + role:admin)

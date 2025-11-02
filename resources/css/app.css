@@ -1,3 +1,67 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+  /* Layout helpers */
+  .container-page {@apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;}
+  .section {@apply py-8;}
+  .h1 {@apply text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-100;}
+  .h2 {@apply text-xl font-semibold text-zinc-100;}
+  .muted {@apply text-sm text-zinc-400;}
+
+  /* Cards */
+  .card {@apply rounded-2xl border border-white/10 bg-zinc-900/40 shadow-sm backdrop-blur-sm;}
+  .card-body {@apply p-4 sm:p-6;}
+
+  /* Buttons */
+  .btn {@apply inline-flex items-center gap-2 rounded-xl border text-sm font-medium transition
+                px-4 py-2 shadow-sm ring-1 ring-inset;}
+  .btn-primary {@apply bg-zinc-900/60 border-white/10 ring-white/10 text-zinc-100 hover:bg-zinc-900;}
+  .btn-muted   {@apply bg-transparent border-white/10 ring-white/10 text-zinc-200 hover:bg-white/5;}
+  .btn-danger  {@apply bg-red-500/10 border-red-500/30 ring-red-500/20 text-red-300 hover:bg-red-500/15;}
+
+  /* Inputs */
+  .input, .select, .textarea {
+    @apply w-full rounded-xl border border-white/10 bg-zinc-900/50 text-zinc-100
+           placeholder-zinc-500 ring-1 ring-inset ring-white/10
+           focus:outline-none focus:ring-2 focus:ring-indigo-400/30 focus:border-white/10;
+  }
+  .input, .select {@apply px-3 py-2;}
+  .textarea {@apply px-3 py-2 min-h-[120px];}
+
+  /* Badges */
+  .badge { @apply inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs text-zinc-300; }
+  .badge-live { @apply border-emerald-500/30 bg-emerald-500/10 text-emerald-300; }
+  .badge-off  { @apply border-zinc-600/40 bg-zinc-700/20 text-zinc-300; }
+
+  /* Alerts */
+  .alert { @apply rounded-xl border px-3 py-2 text-sm; }
+  .alert-success { @apply border-emerald-500/30 bg-emerald-500/10 text-emerald-200; }
+  .alert-error   { @apply border-red-500/30 bg-red-500/10 text-red-200; }
+
+
+  /* --- Text contrast tuning --- */
+
+  /* Algemene paragrafen / beschrijvingen op kaarten */
+  .muted {
+    @apply text-sm text-zinc-300; /* van 400 → 300 = iets lichter */
+  }
+
+  /* Subtekst bij users, timestamps, labels */
+  .text-subtle {
+    @apply text-zinc-500; /* iets lichter dan 500, goed leesbaar op bg-zinc-900 */
+  }
+
+  /* Review body tekst */
+  .review-body {
+    @apply text-zinc-200; /* dichter bij wit */
+  }
+
+  /* Titel/naam accent */
+  .text-accent {
+    @apply text-zinc-100; /* bijna wit, voor namen / titels */
+  }
+}
+

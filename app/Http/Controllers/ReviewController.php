@@ -23,9 +23,9 @@ class ReviewController extends Controller
             ->distinct('played_on')
             ->count('played_on');
 
-        if ($distinctDays < 5) {
+        if ($distinctDays < 1) {
             return back()
-                ->withErrors(['body' => 'Je kunt pas een review plaatsen na minimaal 5 verschillende speeldagen. (Nu: '.$distinctDays.'/5)'])
+                ->withErrors(['body' => 'Je kunt pas een review plaatsen na minimaal 1 verschillende speeldagen. (Nu: '.$distinctDays.'/5)'])
                 ->withInput();
         }
 
@@ -37,4 +37,28 @@ class ReviewController extends Controller
 
         return back()->with('status', 'Review geplaatst! Bedankt 🙌');
     }
+
+    public function update(Request $request, Review $review)
+    {
+        $this->authorize('update', $review);
+
+        $data = $request->validate([
+            'rating' => ['required','integer','between:1,5'],
+            'body'   => ['required','string','min:10','max:2000'],
+        ]);
+
+        $review->update($data);
+
+        return back()->with('status', 'Je review is bijgewerkt.');
+    }
+
+    public function destroy(Review $review)
+    {
+        $this->authorize('delete', $review);
+
+        $review->delete();
+
+        return back()->with('status', 'Je review is verwijderd.');
+    }
+
 }
