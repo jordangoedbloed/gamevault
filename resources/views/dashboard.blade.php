@@ -1,4 +1,4 @@
-<x-app-layout>
+<!-- <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -14,4 +14,11 @@
             </div>
         </div>
     </div>
+</x-app-layout> -->
+
+{{-- resources/views/admin/dashboard.blade.php --}}
+<x-app-layout>
+  <h1 class="text-2xl font-semibold">Admin Dashboard</h1>
+  <p class="mt-2 text-gray-600">Welkom, {{ auth()->user()->name }}.</p>
 </x-app-layout>
+

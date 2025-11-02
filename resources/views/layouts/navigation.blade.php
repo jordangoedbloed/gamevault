@@ -15,6 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <!-- Games link: zichtbaar voor iedereen die is ingelogd -->
+                    <x-nav-link :href="route('games.index')" :active="request()->routeIs('games.*')">
+                        {{ __('Games') }}
+                    </x-nav-link>
+
+                    <!-- Admin link: alleen zichtbaar als user role = admin -->
+                    @if(auth()->user() && auth()->user()->role === 'admin')
+                        <x-nav-link :href="route('admin.games.index')" :active="request()->routeIs('admin.games.*')">
+                            {{ __('Admin Games') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
