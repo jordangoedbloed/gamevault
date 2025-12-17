@@ -59,34 +59,48 @@
             </div>
             <p class="mt-2 review-body">{{ e($rev->body) }}</p>
 
-            @if (auth()->check() && auth()->id() === $rev->user_id)
-              <details class="mt-3">
-                <summary class="cursor-pointer text-sm underline text-zinc-300">Bewerk mijn review</summary>
-                <form method="POST" action="{{ route('reviews.update', $rev) }}" class="mt-2 grid gap-2">
-                  @csrf @method('PATCH')
-                  <div>
-                    <label class="block text-xs text-zinc-400">Rating (1–5)</label>
-                    <input type="number" name="rating" min="1" max="5" value="{{ old('rating', $rev->rating) }}" class="input w-24">
-                  </div>
-                  <div>
-                    <label class="block text-xs text-zinc-400">Review</label>
-                    <textarea name="body" rows="3" class="textarea">{{ old('body', $rev->body) }}</textarea>
-                  </div>
-                  <div class="flex gap-2">
-                    <button class="btn btn-primary">Opslaan</button>
-                    <form method="POST" action="{{ route('reviews.destroy', $rev) }}" onsubmit="return confirm('Weet je zeker dat je je review wilt verwijderen?');">
-                      @csrf @method('DELETE')
-                      <button class="btn btn-danger">Verwijderen</button>
+           @if (auth()->check() && auth()->id() === $rev->user_id)
+                <details class="mt-3">
+                    <summary class="cursor-pointer text-sm underline text-zinc-300">Bewerk mijn review</summary>
+
+                    {{-- UPDATE FORM --}}
+                    <form method="POST" action="{{ route('reviews.update', $rev) }}" class="mt-2 grid gap-2">
+                        @csrf
+                        @method('PATCH')
+
+                        <div>
+                            <label class="block text-xs text-zinc-400">Rating (1–5)</label>
+                            <input type="number" name="rating" min="1" max="5"
+                                  value="{{ old('rating', $rev->rating) }}"
+                                  class="input w-24">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-zinc-400">Review</label>
+                            <textarea name="body" rows="3" class="textarea">{{ old('body', $rev->body) }}</textarea>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button type="submit" class="btn btn-primary">Opslaan</button>
+                        </div>
                     </form>
-                  </div>
-                </form>
-              </details>
+
+                    {{-- DELETE FORM (los, niet genest) --}}
+                    <form method="POST" action="{{ route('reviews.destroy', $rev) }}" class="mt-2"
+                          onsubmit="return confirm('Weet je zeker dat je je review wilt verwijderen?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Verwijderen</button>
+                    </form>
+                </details>
+
             @elseif (auth()->check() && auth()->user()->role === 'admin')
-              <form method="POST" action="{{ route('reviews.destroy', $rev) }}" class="mt-3"
-                    onsubmit="return confirm('Deze review als admin verwijderen?');">
-                @csrf @method('DELETE')
-                <button class="btn btn-danger">Verwijderen (admin)</button>
-              </form>
+                <form method="POST" action="{{ route('reviews.destroy', $rev) }}" class="mt-3"
+                      onsubmit="return confirm('Deze review als admin verwijderen?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Verwijderen (admin)</button>
+                </form>
             @endif
           </div>
         </div>
