@@ -32,6 +32,37 @@ It includes authentication, role-based access control (admin & user), and a revi
 
 ---
 
+## Database & Seeders
+
+The application uses database seeders to provide a consistent dataset for development and assessment purposes.
+
+Seeded data includes:
+	•	Demo admin and user accounts
+	•	20+ video games
+	•	Genres and platforms
+	•	Many-to-many relationships via pivot tables
+
+This allows the database to be reset at any time using:
+```bash
+php artisan migrate:fresh --seed
+```
+
+---
+
+## Demo Accounts
+
+After seeding, the following accounts are available:
+
+Admin account
+	•	Email: admin@gamevault.test
+	•	Password: password
+
+User account
+	•	Email: user@gamevault.test
+	•	Password: password
+
+---
+
 ## Local Setup
 
 Clone this repository and follow the steps below to run GameVault locally:
